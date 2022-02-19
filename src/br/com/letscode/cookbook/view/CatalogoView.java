@@ -55,6 +55,8 @@ public class CatalogoView {
             case "+":
                 add();
                 break;
+            case "E":
+                edit();
             case "-":
                 del();
                 break;
@@ -174,7 +176,7 @@ public class CatalogoView {
                 }
                 //Cria uma nova receita.
                 Receita nova = new EditReceitaView(new Receita(name, categoria)).edit();
-                //Receita nova = new Receita(name,categoria);
+
                 if (nova != null) {
                     //Passa a receita para o Catalogo adicionar.
                     controller.add(nova);

@@ -8,16 +8,20 @@ public class EditReceitaView {
 
     public EditReceitaView(Receita receita) {
 
-        this.receita = new Receita(receita);
+        if (receita != null){
+            this.receita = new Receita(receita.getNome(),receita.getCategoria());
+        }
+
+        //this.receita = new Receita(receita);
     }
 
     public Receita edit() {
-        boolean confirm = false;
-        if (confirm) {
-
+        String opcao = ConsoleUtils.getUserOption("Deseja salvar a receita? %nS - Sim   N - Não", "S", "N");
+        if (opcao.equalsIgnoreCase("S")) {
             return receita;
-        } else {
+        }else {
             return null;
         }
+
     }
 }

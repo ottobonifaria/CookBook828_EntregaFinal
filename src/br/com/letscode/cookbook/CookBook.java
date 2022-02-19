@@ -2,7 +2,9 @@ package br.com.letscode.cookbook;
 
 import br.com.letscode.cookbook.controller.Catalogo;
 import br.com.letscode.cookbook.domain.Receita;
+import br.com.letscode.cookbook.domain.Rendimento;
 import br.com.letscode.cookbook.enums.Categoria;
+import br.com.letscode.cookbook.enums.TipoRendimento;
 import br.com.letscode.cookbook.view.CatalogoView;
 
 public class CookBook {
