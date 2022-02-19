@@ -14,10 +14,16 @@ public class Receita {
     private List<Ingrediente> ingredientes;
     private List<String> preparo;
 
-    public Receita(String nome, Categoria categoria) {
+    public Receita(String nome, Categoria categoria, double tempoPreparo, Rendimento rendimento,
+                   List<Ingrediente> ingredientes, List<String> preparo) {
         this.nome = nome;
         this.categoria = categoria;
+        this.tempoPreparo = tempoPreparo;
+        this.rendimento = rendimento;
+        this.ingredientes = ingredientes;
+        this.preparo = preparo;
     }
+
     public Receita(Receita origem) {
         this.nome = origem.nome;
         this.categoria = origem.categoria;
@@ -65,6 +71,22 @@ public class Receita {
 
     public void setRendimento(Rendimento rendimento) {
         this.rendimento = rendimento;
+    }
+
+    public void setIngrediente(Ingrediente ingrediente) {
+        this.ingredientes.add(ingrediente);
+    }
+
+    public void setIngredientes(List<Ingrediente> ingredientes) {
+        this.ingredientes = ingredientes;
+    }
+
+    public void setPreparo(List<String> preparo) {
+        this.preparo = preparo;
+    }
+
+    public void delIngrediente(int indice) {
+        this.ingredientes.remove(indice);
     }
 
     @Override

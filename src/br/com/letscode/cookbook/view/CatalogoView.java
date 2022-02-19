@@ -57,6 +57,7 @@ public class CatalogoView {
                 break;
             case "E":
                 edit();
+                break;
             case "-":
                 del();
                 break;
@@ -160,31 +161,20 @@ public class CatalogoView {
             } else {
                 //Se NÃO encontrar continua.
                 //Capturar dados da nova receita.
-                StringBuilder sb = new StringBuilder("Qual a categoria da nova receita?\n");
-                String[] options = new String[Categoria.values().length];
-                for (int i = 0; i < options.length; i++) {
-                    options[i] = String.valueOf(i);
-                    sb.append(String.format("%d - %s%n", i, Categoria.values()[i]));
-                }
-                String opcao = ConsoleUtils.getUserOption(sb.toString(), options);
-                Categoria categoria = null;
-                for (int i = 0; i < options.length; i++) {
-                    if (opcao.equalsIgnoreCase(options[i])) {
-                        categoria = Categoria.values()[i];
-                        break;
-                    }
-                }
-                //Cria uma nova receita.
-                Receita nova = new EditReceitaView(new Receita(name, categoria)).edit();
 
-                if (nova != null) {
+                //Cria uma nova receita.
+                EditReceitaView objReceitaView = new EditReceitaView();
+                Receita receitaNova = objReceitaView.addReceita(name);
+
+                if (receitaNova != null) {
                     //Passa a receita para o Catalogo adicionar.
-                    controller.add(nova);
+                    controller.add(receitaNova);
                     //Torna a nova receita a ativa.
-                    ative = nova;
+                    ative = receitaNova;
                     currentIndex = 0;
                 }
             }
+
         }
     }
 
