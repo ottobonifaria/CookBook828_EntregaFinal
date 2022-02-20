@@ -1,6 +1,7 @@
 package br.com.letscode.cookbook.view;
 
 import br.com.letscode.cookbook.domain.Ingrediente;
+import br.com.letscode.cookbook.domain.ModoPreparo;
 import br.com.letscode.cookbook.domain.Receita;
 import br.com.letscode.cookbook.domain.Rendimento;
 import br.com.letscode.cookbook.enums.Categoria;
@@ -38,35 +39,94 @@ public class EditReceitaView {
 
         switch (opcao) {
             case "N":
-                System.out.println("Digite o nome da receita");
-                nomeOpcao = scanner.next();
-                receita.setNome(nomeOpcao);
-                return receita;
+                return editNomeReceita(receita);
             case "C":
-                System.out.println("Digite a categoria");
-                nomeOpcao = scanner.next();
-                receita.setCategoria(Categoria.valueOf(nomeOpcao.toUpperCase()));
-                return receita;
+                return editCategoriaReceita(receita);
             case "T":
-                System.out.println("Digite o tempo de preparo");
-                tempo = scanner.nextDouble();
-                receita.setTempoPreparo(tempo);
-                return receita;
+                return editTempoPreparo(receita);
             case "R":
-                addrendimento();
-                break;
+               return editRendimentoReceita(receita);
             case "I":
-                addIngrediente();
-                break;
+                return editIngredientesReceita(receita);
             case "M":
-                System.out.println("Digite o modo de preparo");
-                nomeOpcao = scanner.next();
-                receita.setNome(nomeOpcao);
-                return receita;
+                return editModoPreparoReceita(receita);
+
         }
         return null;
 
     }
+
+    private Receita editModoPreparoReceita(Receita receita) {
+        List<ModoPreparo> listaModoPreparo = receita.getPreparo();
+        ReceitaView view = new ReceitaView(receita);
+        view.preparoView();
+        System.out.println("Incluir ou editar um passo?");
+
+        String input = ConsoleUtils.getUserOption("Incluir ou editar um passo? %nI - Incluir  E - Editar", "I", "E");
+        if( input.equalsIgnoreCase("E")){
+            System.out.println("Digite numero do passo");
+            int idPasso = scanner.nextInt()-1;
+            scanner.nextLine();
+            ModoPreparo modoPreparo = addModoPreparo(idPasso);
+            listaModoPreparo.set(idPasso,modoPreparo);
+            receita.setPreparo(listaModoPreparo);
+        }else{
+            System.out.println("Digite numero do passo");
+            int idPasso = scanner.nextInt()-1;
+            scanner.nextLine();
+            ModoPreparo modoPreparo = addModoPreparo(idPasso);
+            listaModoPreparo.add(idPasso,modoPreparo);
+            receita.setPreparo(listaModoPreparo);
+        }
+
+
+        return receita;
+    }
+
+    private Receita editIngredientesReceita(Receita receita) {
+        List<Ingrediente> listaIngredientes = receita.getIngredientes();
+        ReceitaView view = new ReceitaView(receita);
+        view.ingredientesView();
+
+        System.out.println("Digite numero do ingrediente");
+        int idIngrediente = scanner.nextInt()-1;
+        scanner.nextLine();
+        Ingrediente ingrediente = addIngrediente();
+        listaIngredientes.set(idIngrediente,ingrediente);
+        receita.setIngredientes(listaIngredientes);
+        return receita;
+    }
+
+    private Receita editRendimentoReceita(Receita receita) {
+        Rendimento rendimento = addrendimento();
+        receita.setRendimento(rendimento);
+
+        return receita;
+    }
+
+    private Receita editTempoPreparo(Receita receita) {
+        System.out.println("Digite o tempo de preparo");
+        tempo = scanner.nextDouble();
+        receita.setTempoPreparo(tempo);
+        return receita;
+    }
+
+    private Receita editCategoriaReceita(Receita receita) {
+        String nomeOpcao;
+        System.out.println("Digite a categoria");
+        nomeOpcao = scanner.next();
+        receita.setCategoria(Categoria.valueOf(nomeOpcao.toUpperCase()));
+        return receita;
+    }
+
+    private Receita editNomeReceita(Receita receita) {
+        String nomeOpcao;
+        System.out.println("Digite o nome da receita");
+        nomeOpcao = scanner.nextLine();
+        receita.setNome(nomeOpcao);
+        return receita;
+    }
+
     public Receita addReceita(String name) {
 
         StringBuilder sb = new StringBuilder("Qual a categoria da nova receita?\n");
@@ -98,10 +158,21 @@ public class EditReceitaView {
             listaIngrediente.add(addIngrediente());
         }
 
+        input="S";
+        List<ModoPreparo> listaPreparo = new ArrayList<>();
+        int i= 1;
+        scanner.nextLine();
+        while (input.equalsIgnoreCase("S")){
+            listaPreparo.add(addModoPreparo(i));
+            input = ConsoleUtils.getUserOption("Deseja incluir mais um modo de preparo? %nS - Sim   N - Não", "S", "N");
+            i++;
+        }
+
+
          input = ConsoleUtils.getUserOption("Deseja salvar a receita? %nS - Sim   N - Não", "S", "N");
         if (input.equalsIgnoreCase("S")) {
-            Receita rc = new Receita(name,categoria,tempo,rendimento,listaIngrediente,null);
-            return receita;
+            Receita rc = new Receita(name,categoria,tempo,rendimento,listaIngrediente,listaPreparo);
+            return rc;
         }else {
             return null;
         }
@@ -109,7 +180,7 @@ public class EditReceitaView {
     private Ingrediente addIngrediente() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Qual o nome do Ingrediente?");
-        String nome = scanner.next();
+        String nome = scanner.nextLine();
 
         StringBuilder sb = new StringBuilder("Qual o tipo de medida do Ingrediente?\n");
         String[] options = new String[TipoMedida.values().length];
@@ -148,11 +219,22 @@ public class EditReceitaView {
             }
         }
         System.out.println("Digite Rendimento minimo");
-        int minimo = scanner.nextByte();
+        int minimo = scanner.nextInt();
         System.out.println("Digite Rendimento maximo");
-        int maximo = scanner.nextByte();
+        int maximo = scanner.nextInt();
 
         Rendimento rendimento = new Rendimento(minimo, maximo, tipoRendimento);
         return rendimento;
     }
+    public ModoPreparo addModoPreparo( int passo){
+        ModoPreparo modoPreparo = new ModoPreparo();
+
+        System.out.println("Digite descrição do passo");
+        String descricaoPasso = scanner.nextLine();
+
+        modoPreparo.setPasso(passo);
+        modoPreparo.setDescriçãoPasso(descricaoPasso);
+        return modoPreparo;
+    }
+    
 }

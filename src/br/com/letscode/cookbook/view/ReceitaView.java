@@ -1,6 +1,7 @@
 package br.com.letscode.cookbook.view;
 
 import br.com.letscode.cookbook.domain.Ingrediente;
+import br.com.letscode.cookbook.domain.ModoPreparo;
 import br.com.letscode.cookbook.domain.Receita;
 
 import java.io.PrintStream;
@@ -17,8 +18,8 @@ public class ReceitaView {
             out.printf("%n%s%n%n", "Nenhuma receita encontrada!");
         } else {
             headerView(out);
-            ingredientesView(out);
-            preparoView(out);
+            ingredientesView();
+            preparoView();
         }
     }
 
@@ -35,32 +36,31 @@ public class ReceitaView {
         }
     }
 
-    public void ingredientesView(PrintStream out) {
-        out.printf("%s%n", "-- Ingredientes --");
+    public void ingredientesView() {
+        System.out.println("-- Ingredientes --");
         if (receita.getIngredientes() == null || receita.getIngredientes().isEmpty()) {
-            out.printf("%s%n", "Nenhum ingrediente encontrado!");
+            System.out.println( "Nenhum ingrediente encontrado!");
         } else {
+            int i=0;
             for (Ingrediente ingrediente : receita.getIngredientes()) {
-                out.printf("%s %s de %s%n", ingrediente.getQuantidade(), ingrediente.getTipo().name(), ingrediente.getNome());
+                System.out.printf("%s - %s %s de %s%n", (i+1),ingrediente.getQuantidade(), ingrediente.getTipo().name(), ingrediente.getNome());
+                i++;
             }
         }
     }
 
-    public void preparoView(PrintStream out) {
-        out.printf("%n%s%n", "-- Modo de preparo --");
+    public void preparoView() {
+        System.out.println("-- Modo de preparo --");
         if (receita.getPreparo() == null || receita.getPreparo().isEmpty()) {
-            out.printf("%s%n", "Nenhum preparo encontrado!");
+            System.out.println("Nenhum preparo encontrado!");
         } else {
-//            for (int i = 0; i < receita.getPreparo().size(); i++) {
-//                out.println(receita.getPreparo().get(i));
-//            }
-//            for (String s : receita.getPreparo()) {
-//                out.println(s);
-//            }
-//            receita.getPreparo().forEach(s -> {
-//                out.println(s);
-//            });
-            receita.getPreparo().forEach(out::println);
+            int i = 0;
+            for (ModoPreparo modoPreparo: receita.getPreparo()
+                 ) {
+                System.out.println( "Passo " + (i+1) + "-" + modoPreparo.getDescriçãoPasso());
+                i++;
+            }
+
         }
     }
 }

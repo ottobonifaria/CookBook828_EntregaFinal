@@ -12,10 +12,10 @@ public class Receita {
     private double tempoPreparo;
     private Rendimento rendimento;
     private List<Ingrediente> ingredientes;
-    private List<String> preparo;
+    private List<ModoPreparo> preparo;
 
     public Receita(String nome, Categoria categoria, double tempoPreparo, Rendimento rendimento,
-                   List<Ingrediente> ingredientes, List<String> preparo) {
+                   List<Ingrediente> ingredientes, List<ModoPreparo> preparo) {
         this.nome = nome;
         this.categoria = categoria;
         this.tempoPreparo = tempoPreparo;
@@ -53,7 +53,7 @@ public class Receita {
         return ingredientes;
     }
 
-    public List<String> getPreparo() {
+    public List<ModoPreparo> getPreparo() {
         return preparo;
     }
 
@@ -81,7 +81,7 @@ public class Receita {
         this.ingredientes = ingredientes;
     }
 
-    public void setPreparo(List<String> preparo) {
+    public void setPreparo(List<ModoPreparo> preparo) {
         this.preparo = preparo;
     }
 
