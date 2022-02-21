@@ -21,6 +21,7 @@ public class CatalogoView {
     }
 
     private boolean showMenu() {
+
         String[] options = new String[7];
         StringBuilder sb = new StringBuilder("#".repeat(100));
         sb.append("%n").append("  + : Adicionar  %n");

@@ -1,12 +1,10 @@
 package br.com.letscode.cookbook.view;
 
 import br.com.letscode.cookbook.enums.Categoria;
-import br.com.letscode.cookbook.enums.TipoMedida;
-import br.com.letscode.cookbook.enums.TipoRendimento;
-
 import java.util.Scanner;
 
 public class ConsoleUtils {
+    static Scanner scanner = new Scanner(System.in);
     private static final String INVALID_OPTION_MSG = "Invalid option. Please try again!";
 
     public static void clear() {
@@ -17,7 +15,16 @@ public class ConsoleUtils {
     public static String getUserInput(String question) {
         return getUserOption(question);
     }
-
+    public static double getUserdouble(String message) {
+        System.out.printf(message.concat("%n# : "));
+        double valor = scanner.nextDouble();
+        scanner.nextLine();
+        while (valor <= 0) {
+            System.out.printf("%s%n# : ", INVALID_OPTION_MSG);
+            valor = scanner.nextDouble();
+        }
+        return valor;
+    }
     public static String getUserOption(String message, String... options) {
         System.out.printf(message.concat("%n# : "));
         Scanner scanner = new Scanner(System.in);
@@ -65,40 +72,5 @@ public class ConsoleUtils {
             }
         }
        return null;
-    }
-    public static TipoRendimento listaRendimento(){
-        StringBuilder sb = new StringBuilder("Qual o tipo de Rendimento?\n");
-        String[] options = new String[TipoRendimento.values().length];
-        for (int i = 0; i < options.length; i++) {
-            options[i] = String.valueOf(i);
-            sb.append(String.format("%d - %s%n", i, TipoRendimento.values()[i]));
-        }
-        String opcao = ConsoleUtils.getUserOption(sb.toString(), options);
-        TipoRendimento tipoRendimento = null;
-        for (int i = 0; i < options.length; i++) {
-            if (opcao.equalsIgnoreCase(options[i])) {
-                tipoRendimento = TipoRendimento.values()[i];
-                return tipoRendimento;
-
-            }
-        }
-        return null;
-    }
-    public static TipoMedida listaMedida(){
-        StringBuilder sb = new StringBuilder("Qual o tipo de medida do Ingrediente?\n");
-        String[] options = new String[TipoMedida.values().length];
-        for (int i = 0; i < options.length; i++) {
-            options[i] = String.valueOf(i);
-            sb.append(String.format("%d - %s%n", i, TipoMedida.values()[i]));
-        }
-        String opcao = ConsoleUtils.getUserOption(sb.toString(), options);
-        TipoMedida tipoMedida = null;
-        for (int i = 0; i < options.length; i++) {
-            if (opcao.equalsIgnoreCase(options[i])) {
-                tipoMedida = TipoMedida.values()[i];
-                return tipoMedida;
-            }
-        }
-        return null;
     }
 }

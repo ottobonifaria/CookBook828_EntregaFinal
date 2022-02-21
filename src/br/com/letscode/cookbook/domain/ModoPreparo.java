@@ -12,7 +12,7 @@ public class ModoPreparo {
         this.descriçãoPasso = descriçãoPasso;
     }
 
-    public int getPasso() {
+    public double getPasso() {
         return passo;
     }
 

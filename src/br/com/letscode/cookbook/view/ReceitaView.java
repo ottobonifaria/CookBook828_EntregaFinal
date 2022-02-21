@@ -1,5 +1,6 @@
 package br.com.letscode.cookbook.view;
 
+import br.com.letscode.cookbook.controller.Catalogo;
 import br.com.letscode.cookbook.domain.Ingrediente;
 import br.com.letscode.cookbook.domain.ModoPreparo;
 import br.com.letscode.cookbook.domain.Receita;
@@ -24,7 +25,8 @@ public class ReceitaView {
     }
 
     public void headerView(PrintStream out) {
-        out.printf("%n%s%n%n", receita.getNome());
+        out.printf("%n--------------  %s  --------------%n%n", receita.getNome());
+        out.printf("Indice da Receita %d%n", new Catalogo().getTotal());
         out.printf("Categoria: %s%n", receita.getCategoria().name());
         out.printf("Tempo de preparo: %s minutos %n", receita.getTempoPreparo());
         if (receita.getRendimento() != null) {
@@ -37,7 +39,7 @@ public class ReceitaView {
     }
 
     public void ingredientesView() {
-        System.out.println("-- Ingredientes --");
+        System.out.println("------------- Ingredientes -------------");
         if (receita.getIngredientes() == null || receita.getIngredientes().isEmpty()) {
             System.out.println( "Nenhum ingrediente encontrado!");
         } else {
@@ -50,7 +52,7 @@ public class ReceitaView {
     }
 
     public void preparoView() {
-        System.out.println("-- Modo de preparo --");
+        System.out.println("------------- Modo de Preparo ------------");
         if (receita.getPreparo() == null || receita.getPreparo().isEmpty()) {
             System.out.println("Nenhum preparo encontrado!");
         } else {
