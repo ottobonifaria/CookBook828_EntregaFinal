@@ -73,8 +73,7 @@ public class EditReceitaView {
         }
         input = ConsoleUtils.getUserOption("Deseja salvar a receita? %nS - Sim   N - Não", "S", "N");
         if (input.equalsIgnoreCase("S")) {
-            Receita receita = new Receita(name,categoria,tempo,rendimento,listaIngrediente,listaPreparo);
-            return receita;
+            return new Receita(name,categoria,tempo,rendimento,listaIngrediente,listaPreparo);
         }else {
             return null;
         }
@@ -116,9 +115,7 @@ public class EditReceitaView {
 
     private Receita addmodoPreparo(){
         List<ModoPreparo> listaModoPreparo = receita.getPreparo();
-        System.out.println("Digite numero do passo a ser incluido");
-        int idPasso = scanner.nextInt();
-        scanner.nextLine();
+        int idPasso = ConsoleUtils.getUserInt("Digite numero do passo a ser incluido ");
         if(idPasso <= listaModoPreparo.size()+1) {
             ModoPreparo modoPreparo = addModoPreparo(idPasso);
             listaModoPreparo.add(idPasso - 1, modoPreparo);
@@ -207,7 +204,6 @@ public class EditReceitaView {
             if (ConsoleUtils.salvaReceita()) {
                 listaIngredientes.set(idIngrediente, ingrediente);
                 receita.setIngredientes(listaIngredientes);
-            } else {
             }
         }else{
             System.out.println("Não existe ingrediente nesta posição para editar");
@@ -222,7 +218,6 @@ public class EditReceitaView {
         if (idIngrediente <= listaIngredientes.size() - 1) {
             if (ConsoleUtils.salvaReceita()) {
                 listaIngredientes.remove(idIngrediente);
-            } else {
             }
         }else{
             System.out.println("Não tem ingrediente para ser excluido desta posição");
@@ -248,10 +243,9 @@ public class EditReceitaView {
         }
 
         System.out.println("Qual a quantidade?");
-        Double quantidade = scanner.nextDouble();
+        double quantidade = scanner.nextDouble();
 
-        Ingrediente ingrediente = new Ingrediente(nome, quantidade, tipoMedida);
-        return ingrediente;
+        return new Ingrediente(nome, quantidade, tipoMedida);
     }
 
     private Receita editRendimentoReceita(Receita receita) {
@@ -286,8 +280,7 @@ public class EditReceitaView {
         System.out.println("Digite Rendimento maximo");
         int maximo = scanner.nextInt();
 
-        Rendimento rendimento = new Rendimento(minimo, maximo, tipoRendimento);
-        return rendimento;
+        return new Rendimento(minimo, maximo, tipoRendimento);
     }
 
     private Receita editTempoPreparo(Receita receita) {

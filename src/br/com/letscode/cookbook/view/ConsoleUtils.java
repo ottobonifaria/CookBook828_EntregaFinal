@@ -15,15 +15,14 @@ public class ConsoleUtils {
     public static String getUserInput(String question) {
         return getUserOption(question);
     }
-    public static double getUserdouble(String message) {
+    public static int getUserInt(String message) {
         System.out.printf(message.concat("%n# : "));
-        double valor = scanner.nextDouble();
-        scanner.nextLine();
-        while (valor <= 0) {
+        String valor = scanner.next();
+        while (valor.toUpperCase().substring(0,1).matches("[A-Z]")) {
             System.out.printf("%s%n# : ", INVALID_OPTION_MSG);
-            valor = scanner.nextDouble();
+            valor = scanner.next();
         }
-        return valor;
+        return  Integer.parseInt(valor);
     }
     public static String getUserOption(String message, String... options) {
         System.out.printf(message.concat("%n# : "));
@@ -47,13 +46,8 @@ public class ConsoleUtils {
         return false;
     }
     public static boolean salvaReceita(){
-        String input ="S";
-        input = ConsoleUtils.getUserOption("Deseja salvar a receita? %nS - Sim   N - Não", "S", "N");
-        if (input.equalsIgnoreCase("S")) {
-            return true;
-        }else {
-            return false;
-        }
+        String input = ConsoleUtils.getUserOption("Deseja salvar a receita? %nS - Sim   N - Não", "S", "N");
+        return input.equalsIgnoreCase("S");
     }
     public static Categoria listaCategoria(){
 
