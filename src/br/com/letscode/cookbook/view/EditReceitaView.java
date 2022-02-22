@@ -7,7 +7,6 @@ import br.com.letscode.cookbook.domain.Rendimento;
 import br.com.letscode.cookbook.enums.Categoria;
 import br.com.letscode.cookbook.enums.TipoMedida;
 import br.com.letscode.cookbook.enums.TipoRendimento;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -29,8 +28,6 @@ public class EditReceitaView {
     }
 
     public Receita MenuEditReceitaView(){
-        Scanner scanner = new Scanner(System.in);
-        String nomeOpcao;
         String opcao = ConsoleUtils.getUserOption("O que deseja alterar? %nN - Nome        "+
                         "C - Categoria     T - Tempo de Preparo%n" +"R - Rendimento  I - Ingredientes  M - Modo de preparo ",
                 "N", "C","T","R","I", "M").toUpperCase();
@@ -67,7 +64,7 @@ public class EditReceitaView {
         String input ="S";
         List<ModoPreparo> listaPreparo = new ArrayList<>();
         int i= 1;
-        System.out.println("-------------Modo de Preparo------------");
+        System.out.println("------------- Modo de Preparo ------------");
         scanner.nextLine();
         while (input.equalsIgnoreCase("S")){
             listaPreparo.add(addModoPreparo(i));
@@ -84,7 +81,6 @@ public class EditReceitaView {
     }
 
     private Receita menuModoPreparoReceita(Receita receita) {
-        List<ModoPreparo> listaModoPreparo = receita.getPreparo();
         ReceitaView view = new ReceitaView(receita);
         view.preparoView();
         String teste = "S";
@@ -109,6 +105,7 @@ public class EditReceitaView {
             }
         return receita;
     }
+
     public ModoPreparo addModoPreparo( int passo){
         ModoPreparo modoPreparo = new ModoPreparo();
         String descricaoPasso = ConsoleUtils.getUserInput("Digite descrição do passo: "+ passo);
@@ -116,6 +113,7 @@ public class EditReceitaView {
         modoPreparo.setDescriçãoPasso(descricaoPasso);
         return modoPreparo;
     }
+
     private Receita addmodoPreparo(){
         List<ModoPreparo> listaModoPreparo = receita.getPreparo();
         System.out.println("Digite numero do passo a ser incluido");
@@ -130,6 +128,7 @@ public class EditReceitaView {
         }
         return receita;
     }
+
     private Receita excluiModoPreparo(){
         List<ModoPreparo> listaModoPreparo = receita.getPreparo();
         System.out.println("Digite numero do passo que deseja excluir");
@@ -145,6 +144,7 @@ public class EditReceitaView {
         }
         return receita;
     }
+
     private Receita editModoPreparo(){
         List<ModoPreparo> listaModoPreparo = receita.getPreparo();
         System.out.println("Digite o numero do passo a ser editado");
@@ -175,9 +175,6 @@ public class EditReceitaView {
             String input = ConsoleUtils.getUserOption("------------- Menu Ingredientes ------------" +
                 " %nA - Adicionar  E - Editar  X - Excluir", "A", "E", "X");
             switch (input.toUpperCase()){
-                case "E":
-                    editIngredienteReceita(receita);
-                    break;
                 case "A":
                     Ingrediente ingrediente = addIngrediente();
                     if (ConsoleUtils.salvaReceita()) {
@@ -187,6 +184,9 @@ public class EditReceitaView {
                         return null;
                     }
                 break;
+                case "E":
+                    editIngredienteReceita(receita);
+                    break;
                 case "X":
                     excluiIngredientereceita(receita);
                     break;
@@ -197,9 +197,9 @@ public class EditReceitaView {
             teste = ConsoleUtils.getUserOption("Deseja continuar Editando Ingredientes?S - Sim ou N - Não", "S", "N");
         }return receita;
     }
+
     private Receita editIngredienteReceita(Receita receita){
         List<Ingrediente> listaIngredientes = receita.getIngredientes();
-        ReceitaView view = new ReceitaView(receita);
         System.out.println("Digite a Posição do ingrediente que deseja editar");
         int idIngrediente = scanner.nextInt() - 1;
         if (idIngrediente <= listaIngredientes.size() - 1) {
@@ -208,13 +208,13 @@ public class EditReceitaView {
                 listaIngredientes.set(idIngrediente, ingrediente);
                 receita.setIngredientes(listaIngredientes);
             } else {
-                //return null;
             }
         }else{
             System.out.println("Não existe ingrediente nesta posição para editar");
         }
         return receita;
     }
+
     private Receita excluiIngredientereceita(Receita receita){
         List<Ingrediente> listaIngredientes = receita.getIngredientes();
         System.out.println("Digite a posição do ingrediente que deseja excluir");
@@ -223,13 +223,13 @@ public class EditReceitaView {
             if (ConsoleUtils.salvaReceita()) {
                 listaIngredientes.remove(idIngrediente);
             } else {
-                //return null;
             }
         }else{
             System.out.println("Não tem ingrediente para ser excluido desta posição");
         }
         return receita;
     }
+
     private Ingrediente addIngrediente() {
         String nome = ConsoleUtils.getUserInput("Qual o nome do Ingrediente?");
         StringBuilder sb = new StringBuilder("Qual o tipo de medida do Ingrediente?\n");

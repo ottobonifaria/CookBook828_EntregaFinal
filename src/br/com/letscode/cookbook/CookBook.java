@@ -16,10 +16,6 @@ import java.util.List;
 public class CookBook {
     public static void main(String[] args) {
         Catalogo catalogo = new Catalogo();
-        //catalogo.add(new Receita("Cookies da Lara 1", Categoria.DOCE));
-        //catalogo.add(new Receita("Cookies da Lara 2", Categoria.DOCE));
-        //catalogo.add(new Receita("Cookies da Lara 3", Categoria.DOCE));
-        //catalogo.add(new Receita("Cookies da Lara 4", Categoria.DOCE));
         String nome= "Suco de Laranja";
         Categoria categoria = Categoria.BEBIDA;
         double tempoPreparo = 20;
@@ -30,12 +26,16 @@ public class CookBook {
         ingredientes.add(primeiroIngredinte);
         Ingrediente segundoIngredinte = new Ingrediente("Açucar",1, TipoMedida.XICARA);
         ingredientes.add(segundoIngredinte);
+        Ingrediente terceiroIngredinte = new Ingrediente("Gelo",3, TipoMedida.UNIDADE);
+        ingredientes.add(terceiroIngredinte);
 
         List<ModoPreparo> listaModoPreparo = new ArrayList<>();
         ModoPreparo primeiroModo = new ModoPreparo(1,"Expremer as Laranjas");
         listaModoPreparo.add(primeiroModo);
         ModoPreparo segundoModo = new ModoPreparo(2,"Colocar o açucar");
         listaModoPreparo.add(segundoModo);
+        ModoPreparo terceiroModo = new ModoPreparo(2,"Misturar");
+        listaModoPreparo.add(terceiroModo);
 
         Receita receita = new Receita(nome,categoria,tempoPreparo, rendimento, ingredientes,  listaModoPreparo);
         catalogo.add(receita);

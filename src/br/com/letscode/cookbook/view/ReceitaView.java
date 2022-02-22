@@ -1,10 +1,8 @@
 package br.com.letscode.cookbook.view;
 
-import br.com.letscode.cookbook.controller.Catalogo;
 import br.com.letscode.cookbook.domain.Ingrediente;
 import br.com.letscode.cookbook.domain.ModoPreparo;
 import br.com.letscode.cookbook.domain.Receita;
-
 import java.io.PrintStream;
 
 public class ReceitaView {
@@ -51,7 +49,7 @@ public class ReceitaView {
     }
 
     public void preparoView() {
-        System.out.println("------------- Modo de Preparo ------------");
+        System.out.println("------------- Modo de Preparo ----------");
         if (receita.getPreparo() == null || receita.getPreparo().isEmpty()) {
             System.out.println("Nenhum preparo encontrado!");
         } else {
