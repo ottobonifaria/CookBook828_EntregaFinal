@@ -26,7 +26,6 @@ public class ReceitaView {
 
     public void headerView(PrintStream out) {
         out.printf("%n--------------  %s  --------------%n%n", receita.getNome());
-        out.printf("Indice da Receita %d%n", new Catalogo().getTotal());
         out.printf("Categoria: %s%n", receita.getCategoria().name());
         out.printf("Tempo de preparo: %s minutos %n", receita.getTempoPreparo());
         if (receita.getRendimento() != null) {
