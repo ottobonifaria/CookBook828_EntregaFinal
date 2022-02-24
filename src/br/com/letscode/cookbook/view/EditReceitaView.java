@@ -54,7 +54,7 @@ public class EditReceitaView {
         Categoria categoria = ConsoleUtils.listaCategoria();
         System.out.println("Digite o tempo de preparo");
         tempo = scanner.nextInt();
-        Rendimento rendimento = addrendimento();
+        Rendimento rendimento = addRendimento();
         System.out.println("Quantos ingredientes tem a receita");
         int cont = scanner.nextInt();
         List<Ingrediente> listaIngrediente = new ArrayList<>();
@@ -92,7 +92,7 @@ public class EditReceitaView {
                     editModoPreparo();
                     break;
                 case "A":
-                    addmodoPreparo();
+                    addModoPreparo();
                     break;
                 case"X":
                     excluiModoPreparo();
@@ -115,7 +115,7 @@ public class EditReceitaView {
         return modoPreparo;
     }
 
-    private Receita addmodoPreparo(){
+    private Receita addModoPreparo(){
         List<ModoPreparo> listaModoPreparo = receita.getPreparo();
         int idPasso = ConsoleUtils.getUserInt("Digite numero do passo a ser incluido ");
         if(idPasso <= listaModoPreparo.size()+1) {
@@ -188,7 +188,7 @@ public class EditReceitaView {
                     editIngredienteReceita(receita);
                     break;
                 case "X":
-                    excluiIngredientereceita(receita);
+                    excluiIngredienteReceita(receita);
                     break;
                 default:
                     System.out.println("Opção inválida!!!");
@@ -215,7 +215,7 @@ public class EditReceitaView {
         return receita;
     }
 
-    private Receita excluiIngredientereceita(Receita receita){
+    private Receita excluiIngredienteReceita(Receita receita){
         List<Ingrediente> listaIngredientes = receita.getIngredientes();
         System.out.println("Digite a posição do ingrediente que deseja excluir");
         int idIngrediente = scanner.nextInt()-1;
@@ -253,7 +253,7 @@ public class EditReceitaView {
     }
 
     private Receita editRendimentoReceita(Receita receita) {
-        Rendimento rendimento = addrendimento();
+        Rendimento rendimento = addRendimento();
         receita.setRendimento(rendimento);
         if (ConsoleUtils.salvaReceita()) {
             return receita;
@@ -262,7 +262,7 @@ public class EditReceitaView {
         }
     }
 
-    private Rendimento addrendimento() {
+    private Rendimento addRendimento() {
         StringBuilder sb = new StringBuilder("Qual o tipo de Rendimento?\n");
         String[] options = new String[TipoRendimento.values().length];
         for (int i = 0; i < options.length; i++) {
