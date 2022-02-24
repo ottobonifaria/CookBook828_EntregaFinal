@@ -53,7 +53,7 @@ public class EditReceitaView {
     public Receita addReceita(String name) {
         Categoria categoria = ConsoleUtils.listaCategoria();
         System.out.println("Digite o tempo de preparo");
-        tempo = scanner.nextDouble();
+        tempo = scanner.nextInt();
         Rendimento rendimento = addrendimento();
         System.out.println("Quantos ingredientes tem a receita");
         int cont = scanner.nextInt();
@@ -81,6 +81,7 @@ public class EditReceitaView {
 
     private Receita menuModoPreparoReceita(Receita receita) {
         ReceitaView view = new ReceitaView(receita);
+        System.out.printf("%n---------- Editando receita:  %s  --------------%n", receita.getNome());
         view.preparoView();
         String teste = "S";
         while (teste.equalsIgnoreCase("S")) {
@@ -99,6 +100,7 @@ public class EditReceitaView {
                 default:
                     System.out.println("Opção invalida !!!");
                 }
+            System.out.printf("%n---------- Editando receita:  %s  --------------%n", receita.getNome());
             view.preparoView();
             teste = ConsoleUtils.getUserOption("Deseja continuar editando o modo de preparo?  S - Sim ou N - Não", "S", "N");
             }
@@ -166,6 +168,7 @@ public class EditReceitaView {
     private Receita MenuEditIngredientesReceita(Receita receita) {
         List<Ingrediente> listaIngredientes = receita.getIngredientes();
         ReceitaView view = new ReceitaView(receita);
+        System.out.printf("%n---------- Editando receita:  %s  --------------%n", receita.getNome());
         view.ingredientesView();
         String teste ="S";
         while (teste.equalsIgnoreCase("S")) {
@@ -190,6 +193,7 @@ public class EditReceitaView {
                 default:
                     System.out.println("Opção inválida!!!");
             }
+            System.out.printf("%n---------- Editando receita:  %s  --------------%n", receita.getNome());
             view.ingredientesView();
             teste = ConsoleUtils.getUserOption("Deseja continuar Editando Ingredientes?S - Sim ou N - Não", "S", "N");
         }return receita;
@@ -243,7 +247,7 @@ public class EditReceitaView {
         }
 
         System.out.println("Qual a quantidade?");
-        double quantidade = scanner.nextDouble();
+        double quantidade = scanner.nextInt();
 
         return new Ingrediente(nome, quantidade, tipoMedida);
     }
@@ -285,7 +289,7 @@ public class EditReceitaView {
 
     private Receita editTempoPreparo(Receita receita) {
         System.out.println("Digite o tempo de preparo");
-        tempo = scanner.nextDouble();
+        tempo = scanner.nextInt();
         receita.setTempoPreparo(tempo);
         if (ConsoleUtils.salvaReceita()) {
             return receita;
@@ -305,6 +309,7 @@ public class EditReceitaView {
     }
 
     private Receita editNomeReceita(Receita receita) {
+
         String nomeOpcao;
         System.out.println("Digite o nome da receita");
         nomeOpcao = scanner.nextLine();
